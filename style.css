@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css?family=Sofia');
+
+html {
+    font-family: Sofia, cursive;
+    background-color: lightblue;
+}
+h1 {
+    font-family: Sofia, cursive;
+    text-align: center;
+}
+.main {
+    box-sizing: border-box;
+}
+.screen {
+    display: flex;
+    font-size: 30px;
+    align-items: center;
+    justify-content: end;
+    border: 2px solid black;
+    margin: 20px;
+    background-color: lightblue;
+    height: 80px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    justify-self: center;
+}
+
+.calculator {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    text-align: center;
+    width: 600px;
+    height: 600px;
+    background-color: lightseagreen;
+    gap: 15px;
+}
+
+.buttons {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    display: grid;
+    justify-content: flex-start;
+    grid-template-columns: repeat(4,1fr);
+    grid-template-rows: repeat(4,1fr);
+    row-gap: 10px;
+    margin-left:15px;
+}
+
+.btn {
+    font-size: 30px;
+    font-weight: 300;
+    background-color: lightgray;
+    border: 1px solid black;
+    border-radius: 5%;
+    text-align: center;
+}
+
+.operator {
+    background-color: rgba(161, 218, 171, 0.671);
+}
+
+.equalbtn {
+    background-color: rgb(243, 169, 108);
+}
+
+.delbtn {
+    background-color: rgb(235, 149, 199);
+}
+
+.clearbtn {
+    background-color: rgb(158, 38, 38);
+}
