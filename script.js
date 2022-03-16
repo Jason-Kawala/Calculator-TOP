@@ -1,3 +1,4 @@
+let page = document.querySelector('html');
 let numbers = document.querySelectorAll(".number");
 let lowField = document.querySelector('.low-screen');
 let opField = document.querySelector('.op-screen');
@@ -5,8 +6,10 @@ let upField = document.querySelector('.up-screen');
 let clearBtn = document.querySelector('.clearbtn');
 let deleteBtn = document.querySelector('.delbtn');
 let operators = document.querySelectorAll('.operator');
-let operatorList = ['+','-','÷','*'];
+let operatorList = ['+','-','÷','*','/'];
 let equal = document.querySelector('.equalbtn');
+let equalClick = new Event('click');
+
 
 // Basic operating functions
 function add(x,y) {
@@ -28,28 +31,54 @@ function divide(x,y) {
     return x/y;
 }
 
-function clearDisplay() {
+function clearDisplay() { // Clear all calculator
     lowField.innerHTML = '';
     upField.innerHTML = '';
     opField.innerHTML = '';
 }
 
-function deleteLast() {
+function deleteLast() { // Delete last element of the number field
     lowField.innerHTML = lowField.innerHTML.slice(0,-1);
 }
 
-function operate(operator,x,y) {
-    return operator(x,y);
+function operate(calcul,x,y) {
+    return calcul(x,y);
+}
+
+function makeCalcul(operator) {
+    switch (operator) {
+        case '+':
+            let result1 = operate(add, parseInt(upField.innerHTML), parseInt(lowField.innerHTML) );
+            return result1;
+        case '-':
+            let result2 = operate(substract, parseInt(upField.innerHTML), parseInt(lowField.innerHTML) );
+            return result2;
+        case '*':
+            let result3 = operate(multiply, parseInt(upField.innerHTML), parseInt(lowField.innerHTML) );
+            return result3;
+        case '÷':
+            let result4 = operate(divide, parseInt(upField.innerHTML), parseInt(lowField.innerHTML) );
+            return result4;
+        case '/':
+            let result5 = operate(divide, parseInt(upField.innerHTML), parseInt(lowField.innerHTML) );
+            return result5;
+    }
 }
 
 numbers.forEach(button => {
     button.addEventListener('click', () => {
         lowField.innerHTML += button.dataset.value;
+        secondValue = parseInt(lowField.innerHTML);
     });
 });
 
 operators.forEach(opBtn => {
     opBtn.addEventListener('click', () => {
+        if (upField.innerHTML[upField.innerHTML.length -1] === '=') {
+            console.log('testequal');
+        } else if (upField.innerHTML != '' && lowField.innerHTML != '') {
+            equal.dispatchEvent(equalClick);
+        }
         opField.innerHTML = opBtn.dataset.operator;
         upField.innerHTML = lowField.innerHTML;
         lowField.innerHTML = '';
@@ -58,27 +87,20 @@ operators.forEach(opBtn => {
 
 equal.addEventListener('click', () => {
     upField.innerHTML += opField.innerHTML + lowField.innerHTML + equal.innerHTML;
-    let operator = opField.innerHTML
+    let operator = opField.innerHTML;
     opField.innerHTML = '';
-    switch (operator) {
-        case '+':
-            let result1 = operate(add, parseInt(upField.innerHTML), parseInt(lowField.innerHTML) );
-            lowField.innerHTML = result1;
-            break;
-        case '-':
-            let result2 = operate(substract, parseInt(upField.innerHTML), parseInt(lowField.innerHTML) );
-            lowField.innerHTML = result2;
-            break;
-        case '*':
-            let result3 = operate(multiply, parseInt(upField.innerHTML), parseInt(lowField.innerHTML) );
-            lowField.innerHTML = result3;
-            break;
-        case '÷':
-            let result4 = operate(divide, parseInt(upField.innerHTML), parseInt(lowField.innerHTML) );
-            lowField.innerHTML = result4
-            break;
-    }
-})
+    lowField.innerHTML = Math.round(makeCalcul(operator) * 100) / 100;
+});
 
 clearBtn.addEventListener('click', clearDisplay);
 deleteBtn.addEventListener('click', deleteLast);
+
+page.addEventListener('keydown', function(event) {
+    if (operatorList.includes(event.key) ) {
+        opBtn.dispatchEvent('click')
+    } else if (event.key === "=") {
+        equal.dispatchEvent(equalClick);
+    } else {
+        lowField.innerHTML += `${event.key}`;
+    }
+});
