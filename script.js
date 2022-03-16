@@ -51,11 +51,34 @@ numbers.forEach(button => {
 operators.forEach(opBtn => {
     opBtn.addEventListener('click', () => {
         opField.innerHTML = opBtn.dataset.operator;
-        let lastValue = parseInt(lowField.innerHTML);
-        upField.innerHTML += lowField.innerHTML + opField.innerHTML;
+        upField.innerHTML = lowField.innerHTML;
         lowField.innerHTML = '';
     });
 });
+
+equal.addEventListener('click', () => {
+    upField.innerHTML += opField.innerHTML + lowField.innerHTML + equal.innerHTML;
+    let operator = opField.innerHTML
+    opField.innerHTML = '';
+    switch (operator) {
+        case '+':
+            let result1 = operate(add, parseInt(upField.innerHTML), parseInt(lowField.innerHTML) );
+            lowField.innerHTML = result1;
+            break;
+        case '-':
+            let result2 = operate(substract, parseInt(upField.innerHTML), parseInt(lowField.innerHTML) );
+            lowField.innerHTML = result2;
+            break;
+        case '*':
+            let result3 = operate(multiply, parseInt(upField.innerHTML), parseInt(lowField.innerHTML) );
+            lowField.innerHTML = result3;
+            break;
+        case '÷':
+            let result4 = operate(divide, parseInt(upField.innerHTML), parseInt(lowField.innerHTML) );
+            lowField.innerHTML = result4
+            break;
+    }
+})
 
 clearBtn.addEventListener('click', clearDisplay);
 deleteBtn.addEventListener('click', deleteLast);
