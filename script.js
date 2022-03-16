@@ -1,9 +1,11 @@
 let numbers = document.querySelectorAll(".number");
-let field = document.querySelector('.screen');
+let nbField = document.querySelector('.screen');
+let opField = document.querySelector('.op-screen');
 let clearBtn = document.querySelector('.clearbtn');
 let deleteBtn = document.querySelector('.delbtn')
 let operators = document.querySelectorAll('.operator');
 let operatorList = ['+','-','÷','*'];
+let buttons = document.querySelectorAll('.btn');
 
 // Basic operating functions
 function add(x,y) {
@@ -26,11 +28,11 @@ function divide(x,y) {
 }
 
 function clearDisplay() {
-    field.innerHTML = '';
+    nbField.innerHTML = '';
 }
 
 function deleteLast() {
-    field.innerHTML = field.innerHTML.slice(0,-1);
+    nbField.innerHTML = nbField.innerHTML.slice(0,-1);
 }
 
 function operate(operator,x,y) {
@@ -39,19 +41,18 @@ function operate(operator,x,y) {
 
 numbers.forEach(button => {
     button.addEventListener('click', () => {
-        field.innerHTML += button.dataset.value;
+        nbField.innerHTML += button.dataset.value;
     });
 });
 
 operators.forEach(button => {
     button.addEventListener('click', () => {
-        if ( operatorList.includes(field.innerHTML[field.innerHTML.length -1]) ) {
+        if ( operatorList.includes(nbField.innerHTML[nbField.innerHTML.length -1]) ) {
             deleteLast();
         }
-        field.innerHTML += button.dataset.operator;
+        nbField.innerHTML += button.dataset.operator;
     });
 });
 
 clearBtn.addEventListener('click', clearDisplay);
 deleteBtn.addEventListener('click', deleteLast);
-
