@@ -5,7 +5,6 @@ let clearBtn = document.querySelector('.clearbtn');
 let deleteBtn = document.querySelector('.delbtn')
 let operators = document.querySelectorAll('.operator');
 let operatorList = ['+','-','÷','*'];
-let buttons = document.querySelectorAll('.btn');
 
 // Basic operating functions
 function add(x,y) {
@@ -29,6 +28,7 @@ function divide(x,y) {
 
 function clearDisplay() {
     nbField.innerHTML = '';
+    opField.innerHTML = '';
 }
 
 function deleteLast() {
@@ -45,12 +45,9 @@ numbers.forEach(button => {
     });
 });
 
-operators.forEach(button => {
-    button.addEventListener('click', () => {
-        if ( operatorList.includes(nbField.innerHTML[nbField.innerHTML.length -1]) ) {
-            deleteLast();
-        }
-        nbField.innerHTML += button.dataset.operator;
+operators.forEach(opBtn => {
+    opBtn.addEventListener('click', () => {
+        opField.innerHTML = opBtn.dataset.operator;
     });
 });
 

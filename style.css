@@ -25,11 +25,29 @@ h1 {
     justify-content: end;
     border: 2px solid black;
     background-color: lightblue;
-    height: 80px;
+    height: 40px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    margin-left: 20px;
-    margin-top: 20px;
     border-right: none;
+}
+
+.screen-wrap {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    align-items: center;
+    margin-left: -10px;
+}
+
+.up-screen {
+    margin-top: 20px;
+    border-bottom: none;
+    font-size: 20px;
+    justify-content: end;
+}
+
+.low-screen {
+    margin-top: none;
+    border-top: none;
 }
 
 .op-screen {
@@ -42,9 +60,10 @@ h1 {
     background-color: lightblue;
     height: 80px;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    margin-right: 20px;
     margin-top: 20px;
     border-left: none;
+    margin-left: -27px;
+    margin-right: 15px;
 }
 
 .calculator {
