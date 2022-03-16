@@ -26,7 +26,9 @@ function multiply(x,y) {
 
 function divide(x,y) {
     if (y === 0) {
-        return "Nope";
+        alert("Can't do that..");
+        clearDisplay();
+        return;
     }
     return x/y;
 }
@@ -65,10 +67,22 @@ function makeCalcul(operator) {
     }
 }
 
-numbers.forEach(button => {
+function convertInput(keyboardInput) { // Function to handle keyboard input
+    switch(keyboardInput) {
+        case '/':
+            return '÷';
+        case '+':
+            return '+';
+        case '-':
+            return '-';
+        case '*':
+            return '*';
+    }
+  }
+
+numbers.forEach(button => { // Numbers button listener
     button.addEventListener('click', () => {
         lowField.innerHTML += button.dataset.value;
-        secondValue = parseInt(lowField.innerHTML);
     });
 });
 
