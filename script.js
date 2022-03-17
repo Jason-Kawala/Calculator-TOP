@@ -7,6 +7,7 @@ let clearBtn = document.querySelector('.clearbtn');
 let deleteBtn = document.querySelector('.delbtn');
 let operators = document.querySelectorAll('.operator');
 let operatorList = ['+','-','÷','*','/'];
+let numberList = ['1','2','3','4','5','6','7','8','9','0']
 let equal = document.querySelector('.equalbtn');
 let equalClick = new Event('click');
 
@@ -77,6 +78,8 @@ function convertInput(keyboardInput) { // Function to handle keyboard input
             return '-';
         case '*':
             return '*';
+        default:
+            return keyboardInput;
     }
   }
 
@@ -91,7 +94,8 @@ operators.forEach(opBtn => {
         if (upField.innerHTML[upField.innerHTML.length -1] === '=') {
             console.log('testequal');
         } else if (upField.innerHTML != '' && lowField.innerHTML != '') {
-            equal.dispatchEvent(equalClick);
+            let triggerEqual = new Event('click');
+            equal.dispatchEvent(triggerEqual);
         }
         opField.innerHTML = opBtn.dataset.operator;
         upField.innerHTML = lowField.innerHTML;
@@ -110,11 +114,22 @@ clearBtn.addEventListener('click', clearDisplay);
 deleteBtn.addEventListener('click', deleteLast);
 
 page.addEventListener('keydown', function(event) {
-    if (operatorList.includes(event.key) ) {
-        opBtn.dispatchEvent('click')
-    } else if (event.key === "=") {
+    let keyInput = convertInput(event.key);
+    if (operatorList.includes(keyInput) ) {
+        for(i=0;i<operators.length;i++) {
+            if(operators[i].innerHTML === keyInput) {
+                operators[i].dispatchEvent(equalClick);
+            }
+        }
+    } else if (keyInput === "=" || keyInput === "Enter") {
         equal.dispatchEvent(equalClick);
-    } else {
+    } else if (keyInput === "Escape") {
+        clearDisplay();
+    } else if ( numberList.includes(keyInput) ) {
         lowField.innerHTML += `${event.key}`;
     }
 });
+
+/* page.addEventListener('keydown', function(event) {
+    console.log(event.key);
+}); */
