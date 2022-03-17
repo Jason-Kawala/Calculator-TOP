@@ -125,11 +125,13 @@ page.addEventListener('keydown', function(event) {
         equal.dispatchEvent(equalClick);
     } else if (keyInput === "Escape") {
         clearDisplay();
+    } else if (keyInput === "Backspace") {
+        deleteLast();
     } else if ( numberList.includes(keyInput) ) {
         lowField.innerHTML += `${event.key}`;
     }
 });
 
-/* page.addEventListener('keydown', function(event) {
+ page.addEventListener('keydown', function(event) {
     console.log(event.key);
-}); */
+}); 
